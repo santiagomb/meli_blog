@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- Consider specifying the language of your content by adding the `lang` attribute to <html> -->
+<!--[if lt IE 7]> <html class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+
+	<meta charset="utf-8">
+
+	<!-- Always force latest IE rendering engine & Chrome Frame -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<!-- Put your title here! -->
+	<title>El rincón del vago</title>
+
+	<meta name="description" content="">
+
+	 <!-- Mobile viewport optimized: h5bp.com/viewport -->
+	<meta name="viewport" content="width=device-width">
+
+	<link href="css/stylePost.css" rel="stylesheet">
+
+	<!-- Load Open Sans and Merriweather from Google Fonts
+		For optimal performance, customize it to load the styles you need:
+		http://goo.gl/QufgJ
+	-->
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Merriweather:400,700,900" rel="stylesheet">
+
+	<!-- All JavaScript at the bottom, except for Modernizr
+		Modernizr enables HTML5 elements & feature detects; It includes Respond, a polyfill for min/max-width CSS3 Media Queries
+		For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+	<script src="js/modernizr-2.6.1.min.js"></script>
+
+</head>
+
+<body>
+
+	<header id="master-header" class="clearfix" role="banner">
+
+		<hgroup>
+			{{#user}}
+				<h5 align="right">Bienvenido {{user}}</h5>
+			{{/user}}
+			{{^user}}
+				<h5 align="right">Bienvenido Guest</h5>
+			{{/user}}
+			<h1 id="site-title">{{title}}</h1>
+		</hgroup>
+
+	</header> <!-- #master-header -->
+
+<div id="main" class="row clearfix">
+
+	<!-- Main navigation -->
+	<nav class="main-navigation clearfix span12" role="navigation">
+		<ul>
+			<li class="current"><a href="index.html">Log out</a></li>
+			<li class="current"><a href="newpost.html">Nuevo Post</a></li>
+			<li class="current"><a href="/viewallposts">Ver todos</a></li>
+		</ul>
+	</nav> <!-- #main-navigation -->
+
+<div id="content" role="main" class="span7">
+
+	<header class="entry-header">
+		<h1 class="entry-title">
+			<a href="#" title="Post Heading" rel="bookmark">{{postTitle}}</a>
+		</h1>
+
+	</header> <!-- .entry-header -->
+
+	{{#posts}}
+	<article class="post hentry">
+		<a href="#" title="Post Heading"><img src="img/200x200.gif" alt="Post thumbnail" class="thumbnail" /><h3>{{titulo}}</h3></a>
+		<div class="entry-content">
+			{{contenido}}
+			<p><a href="#" class="more-link">Seguir leyendo <span class="meta-nav">&rarr;</span></a></p>
+		</div> <!-- .entry-content -->
+
+		<footer class="entry-meta">
+			Posted on <time class="entry-date" datetime="2012-06-25" pubdate>{{fecha}}</time>
+			by <span class="author vcard"><a class="url fn n" title="View all posts by Author" rel="author">{{autor}}</a></span>
+			{{#user}}
+				<span class="edit-link"><a href="#" title="Edit entry">Editar post &#9997;</a></span>
+			{{/user}}
+			{{^user}}
+				<span class="edit-link"><a href="#" title="Edit entry">Ingresar comentario &#9997;</a></span>
+			{{/user}}
+		</footer>
+	</article> <!-- .post.hentry -->
+	{{/posts}}	
+
+</div> <!-- #content -->
+
+
+</div> <!-- #main -->
+
+	<!-- 
+	<footer id="footer" role="contentinfo">
+		<p>
+			Copyright &copy; 2012 <a href="#">Sitename.com</a>
+			<span class="sep">|</span>
+			Design by <a href="http://jayj.dk" title="Design by Jayj.dk">Jayj.dk</a>
+		</p>
+	</footer> <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
+	-->
+	<script src="js/main.js"></script>
+</body>
+</html>

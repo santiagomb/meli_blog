@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  
+      <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  
+</head>
+
+<body>
+  <div class="login">
+    <h2>Log In</h2>
+    <form action="/getuser" method="POST">
+      <input type="email" id="email" placeholder="Email" name="mail" />
+    	<input type="password" id="password" placeholder="Password" name="pass" />
+      <input type="submit" value="Log In" />
+    </form>
+    <div class="utilities">
+      <a href="/viewposts">Ingresar como Guest</a>
+      <a href="signup.html">Sign Up &rarr;</a>
+    </div>
+  </div>
+  
+  
+</body>
+</html>

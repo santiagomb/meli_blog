@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Post</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  
+      <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="http://livejs.com/live.js"></script>
+</head>
+
+<body>
+  <div class="login">
+    <h2>Crear Post</h2>
+    <form action="/getpost" method="POST">
+      <input id="title" placeholder="Título" name="title" required="Introduzca titulo" />
+    	<textarea id="content" placeholder="Contenido" name="content" required="Introduzca contenido"></textarea>
+      <input id="autor" placeholder="Autor" name="autor" required="Introduzca autor" />
+      <input type="submit" value="Enviar" />
+    </form>
+  </div>
+</body>
+
+</html>
