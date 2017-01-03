@@ -8,10 +8,11 @@ var
     express = require("express"),
     manejadorDeBlog = require("./modules/manejadorDeBlog"),
     body = require('body-parser'), // para leer parametros del post. query es para get
-    mongoose = require('mongoose'); // MONGO DB
+    mongoose = require('mongoose');
 
 var err = '404.html';
 var tituloBlog = 'Probando Mustache {{';
+var currentUser;
 
 var app = express();
 app.use(express.static('public'));
@@ -47,15 +48,16 @@ mongoose.connect('mongodb://localhost:27017/usersBlog', function(err, db) {
     console.log('Connected to Database');
 });
 
-var blogUser = mongoose.model('users', userSchema);
-var blogPost = mongoose.model('posts', postSchema);
-//blogUser.find({}, function (err, data){ console.log(err, data)});
+var blogUser = mongoose.model('users', userSchema, 'users');
+var blogPost = mongoose.model('posts', postSchema, 'posts');
 
 /*
  ####################################
  ############ END MONGO  ############
  ####################################
  */
+
+
 
 // crear un post (V2)
 app.get("/newpost", function(req, res) {
@@ -73,11 +75,8 @@ app.post("/getuser", function(req, res){
     var pass = object.pass;
     blogUser.find({email: user, password: pass}, function (err, data){
         if(data.length != 0){
-            mu.clearCache();
-            var ultimosPosts = manejadorDeBlog.posts;
-            var stream = mu.compileAndRender('./public/posts.html', {title: tituloBlog, subtitle: 'Últimos posts',
-                user: user, posts: ultimosPosts.slice(0,3)});
-            stream.pipe(res);
+            currentUser = user;
+            res.redirect('/viewposts')
         }else{
             console.log("Pass o usuario incorrecto");
             res.send(500, 'wrongLogin');
@@ -85,9 +84,6 @@ app.post("/getuser", function(req, res){
     });
 });
 
-app.get("/", function(req, res) {
-
-});
 
 app.get("/signup", function(req, res) {
     res.sendFile(path.join(__dirname + '/public/signup.html'));
@@ -108,7 +104,7 @@ app.post("/signupuser", function(req, res){
 app.get("/viewposts", function(req, res){
     mu.clearCache();
     var ultimosPosts = manejadorDeBlog.posts;
-    var stream = mu.compileAndRender('./public/posts.html', {title: tituloBlog, subtitle: 'Últimos posts', posts: ultimosPosts.slice(0,3)});
+    var stream = mu.compileAndRender('./public/posts.html', {user: currentUser, title: tituloBlog, subtitle: 'Últimos posts', posts: ultimosPosts.slice(0,3)});
     stream.pipe(res);
 });
 
@@ -125,6 +121,7 @@ app.get("/post", function(req, res){
     var stream = mu.compileAndRender('./public/posts.html', {title: tituloBlog, subtitle: subtitle, posts: ultimosPosts});
     stream.pipe(res);
 });
+
 
 /*
  ####################################
@@ -185,4 +182,47 @@ app.get("/users", function (req, res) {
  #################################
  */
 
+/*
+ #################################
+ ########  BEGIN API GO  #########
+ #################################
+*/
+var req = require('request');
+
+req.get('http://localhost:8080/ping', function(err, resp, body){
+    if (!err && resp.statusCode == 200) {
+        var data = JSON.parse(body);
+        console.log(data);
+    }
+});
+
+/*
+###################################
+############  END API GO ##########
+###################################
+*/
+
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    res.status(404);
+    // respond with html page
+    if (req.accepts('html')) {
+        res.redirect(err);
+        return;
+    }
+
+    // respond with json
+    if (req.accepts('json')) {
+        res.send({ error: 'Not found' });
+        return;
+    }
+
+    // default to plain-text. send()
+    res.type('txt').send('Not found');
+});
+
+
 app.listen(process.env.PORT || 3000);
+
